@@ -22,6 +22,6 @@ JavaScript: Managing dynamic interactions like liking and removing photos.
 (./images/demo/Desktop.png)
 (./images/demo/mobileapp.png)
 
-Here is a video of the project:https://drive.google.com/file/d/1AobCUQ6Fya2hVWT-wdbCHHqCrAcndE-k/view?usp=sharing
+Here is a video of the project:https://drive.google.com/file/d/1NEC10dy5lUyvyRe7ORhUgg9i-l3E2YCh/view?usp=sharing
 
 Link to the deployed site via GitHub Pages:https://darilynp.github.io/se_project_spots/
