@@ -1,6 +1,5 @@
 .card {
   font-family: "Poppins", Arial, Helvetica, sans-serif;
-  border-bottom: 1px;
 }
 .card__image {
   height: 413px;
@@ -13,7 +12,6 @@
 }
 
 .card__title {
-  height: 24px;
   max-width: 353px;
   font-family: "Poppins", Arial, Helvetica, sans-serif;
   font-weight: 500;
@@ -33,7 +31,7 @@
 }
 
 .card__like-button {
-  background-image: url(../images/Heart\ icon.svg);
+  background-image: url(../images/Heart_icon.svg);
   width: 23px;
   height: 20px;
   border: none;
@@ -56,6 +54,6 @@
     font-size: 16px;
     font-weight: 500;
     line-height: 16px;
-    max-width: 95px;
+    max-width: 235px;
   }
 }
