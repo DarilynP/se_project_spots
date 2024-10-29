@@ -67,7 +67,7 @@ function openModal() {
 }
 
 function closeModal() {
-  editProfileModal.classList.remove("modal__opened");
+  editProfileModal.classList.remove("modal_opened");
 }
 
 function handleEditFormSubmit(evt) {

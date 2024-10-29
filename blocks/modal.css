@@ -15,7 +15,7 @@
   z-index: 1000;
 }
 
-.modal__opened {
+.modal_opened {
   visibility: visible;
   display: flex;
 }
