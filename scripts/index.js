@@ -63,7 +63,7 @@ function openModal() {
   editModalNameInput.value = profileName.textContent;
   editModalDescriptionInput.value = profileDescription.textContent;
   // TODO- SAME THING WITH DESCRIPTION ELEMENT//
-  editProfileModal.classList.add("modal__opened");
+  editProfileModal.classList.add("modal_opened");
 }
 
 function closeModal() {
