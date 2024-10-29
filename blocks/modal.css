@@ -17,6 +17,7 @@
 
 .modal__opened {
   visibility: visible;
+  display: flex;
 }
 
 .modal__container {
