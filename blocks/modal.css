@@ -1,6 +1,5 @@
 .modal {
   position: fixed;
-
   bottom: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.5);
@@ -20,6 +19,43 @@
   display: flex;
 }
 
+.modal_is-opened {
+  display: block;
+}
+
+.modal__content_type_preview {
+  padding: 0;
+}
+
+.modal__image {
+  max-width: 80vw;
+  max-height: 80vh;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.modal__caption {
+  color: #fff;
+  background-color: #212121;
+  margin: 4px 8px 4px 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 24px;
+  border-radius: 8px;
+  position: absolute;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  line-height: 24px;
+  max-width: 500px;
+}
+
+.modal__content {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+}
+
 .modal__container {
   background: #fff;
   padding: 32px 50px;
@@ -27,17 +63,28 @@
   position: relative;
   box-sizing: border-box;
   width: 100%;
+  border-radius: 8px;
 }
 
-.modal__close-button {
+.modal__close {
   position: absolute;
   border: none;
-  top: 32px;
-  right: 50px;
   width: 40px;
   height: 40px;
   background-image: url(../images/X_mark.png);
   background-color: transparent;
+  cursor: pointer;
+}
+
+.modal__close_type_preview {
+  background-image: url(../images/close-light.png);
+  top: 0;
+  right: -52.5px;
+  opacity: 1;
+  padding: 0;
+  position: absolute;
+  width: 40px;
+  height: 40px;
 }
 
 .modal__title {
@@ -53,23 +100,27 @@
   flex-direction: column;
   gap: 8px;
   margin-bottom: 32px;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 17.6px;
 }
 
 .modal__input {
   padding: 16px 12px;
-
   font-family: "Poppins", Arial, Helvetica, sans-serif;
   font-size: 20px;
   font-weight: 500;
   line-height: 20px;
   display: block;
+  box-sizing: border-box;
+  border-radius: 8px;
 }
 
 .modal__submit-button {
   width: 156px;
   padding: 18px 0;
   font-family: "Poppins", Arial, Helvetica, sans-serif;
-  font-size: 20px;
   font-size: 16px;
   font-weight: 500;
   line-height: 16px;
@@ -77,6 +128,7 @@
   background: #212121;
   color: #fcf5e5;
   margin-top: 32px;
+  border-radius: 8px;
 }
 
 @media screen and (max-width: 627px) {
@@ -86,13 +138,17 @@
 
   .modal__container {
     padding: 12px;
+    max-width: 300px;
   }
 
+  .modal__input {
+    max-width: 276px;
+  }
   .modal__title {
     font-size: 20px;
     margin: 10px 0 34px;
   }
-  .modal__close-button {
+  .modal__close {
     top: 12px;
     right: 12px;
   }
