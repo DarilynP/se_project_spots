@@ -60,6 +60,7 @@
   background-color: transparent;
   opacity: 0.4;
   transition: opacity 0.3s ease;
+  background-repeat: no-repeat;
 }
 
 .card__like-button:hover {
@@ -68,12 +69,13 @@
 }
 
 .card__like-button_liked {
-  background-image: url("../images/like-icon-liked.png");
+  background-image: url("../images/like-icon-liked.svg");
   opacity: 1;
+  background-repeat: no-repeat;
 }
 
 .card__like-button_liked:hover {
-  background-image: url("../images/like-icon-likes:hover.png");
+  background-image: url("../images/like-icon-likes:hover..svg");
   opacity: 1;
 }
 

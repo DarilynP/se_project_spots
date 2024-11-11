@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {});
 const profileEditButton = document.querySelector(".profile__edit-button");
 const cardModalButton = document.querySelector(".profile__add-button");
 const profileDescription = document.querySelector(".profile__description");
+const profileName = document.querySelector(".profile__name");
 
 //Form Elements
 const editModal = document.querySelector("#edit-profile-modal");
@@ -123,8 +124,10 @@ function handleAddCardSubmit(evt) {
 
   //TODO make sure card appears on top of the list
   cardsList.prepend(cardElement);
+  evt.target.reset();
 
   //close the modal
+  closeModal(cardModal);
 }
 
 profileEditButton.addEventListener("click", () => {
