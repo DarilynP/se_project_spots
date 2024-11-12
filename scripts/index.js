@@ -33,11 +33,11 @@ const profileName = document.querySelector(".profile__name");
 
 //Form Elements
 const editModal = document.querySelector("#edit-profile-modal");
-const editFormElement = document.querySelector(".modal__form");
+const editFormElement = editModal.querySelector(".modal__form");
 const editProfileModal = document.querySelector("#edit-profile-modal");
 const editModalClosedButton = document.querySelector(".modal__close");
-const editModalNameInput = document.querySelector("#profile-name-input");
-const editModalDescriptionInput = document.querySelector(
+const editModalNameInput = editModal.querySelector("#profile-name-input");
+const editModalDescriptionInput = editModal.querySelector(
   "#profile-description-input"
 );
 const cardModal = document.querySelector("#add-card-modal");
@@ -45,7 +45,6 @@ const cardForm = cardModal.querySelector(".modal__form");
 const cardModalCloseButton = cardModal.querySelector(".modal__close");
 const descriptionInput = cardModal.querySelector("#add-card-name-input");
 const cardLinkInput = cardModal.querySelector("#add-card-link-input");
-const saveButton = cardModal.querySelector(".modal__submit-button");
 
 //select the modal
 const previewModal = document.querySelector("#preview__modal");
@@ -114,7 +113,7 @@ function handleEditFormSubmit(evt) {
 function handleAddCardSubmit(evt) {
   evt.preventDefault();
   //TODO -make image appear when adding card
-  console.log(descriptionInput.value.value);
+  console.log(descriptionInput.value);
   console.log(cardLinkInput.value);
   const inputValues = {
     name: descriptionInput.value,
@@ -131,6 +130,8 @@ function handleAddCardSubmit(evt) {
 }
 
 profileEditButton.addEventListener("click", () => {
+  editModalNameInput.value = profileName.textContent;
+  editModalDescriptionInput.value = profileDescription.textContent;
   openModal(editModal);
 });
 
@@ -148,10 +149,6 @@ cardModalCloseButton.addEventListener("click", () => {
 
 previewModalCloseButton.addEventListener("click", () => {
   closeModal(previewModal);
-});
-
-saveButton.addEventListener("click", () => {
-  console.log("clicked");
 });
 
 editFormElement.addEventListener("submit", handleEditFormSubmit);
