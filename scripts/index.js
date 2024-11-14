@@ -35,7 +35,7 @@ const profileName = document.querySelector(".profile__name");
 const editModal = document.querySelector("#edit-profile-modal");
 const editFormElement = editModal.querySelector(".modal__form");
 const editProfileModal = document.querySelector("#edit-profile-modal");
-const editModalClosedButton = document.querySelector(".modal__close");
+const closeButtons = document.querySelectorAll(".modal__close");
 const editModalNameInput = editModal.querySelector("#profile-name-input");
 const editModalDescriptionInput = editModal.querySelector(
   "#profile-description-input"
@@ -89,8 +89,6 @@ function getCardElement(data) {
   });
 
   deleteButton.addEventListener("click", handleDeleteCard);
-  //todo set the losterner on the delete button
-  // the handler should remove the card from the DOM
 
   return cardElement;
 }
@@ -121,11 +119,9 @@ function handleAddCardSubmit(evt) {
   };
   const cardElement = getCardElement(inputValues);
 
-  //TODO make sure card appears on top of the list
   cardsList.prepend(cardElement);
   evt.target.reset();
 
-  //close the modal
   closeModal(cardModal);
 }
 
@@ -135,8 +131,13 @@ profileEditButton.addEventListener("click", () => {
   openModal(editModal);
 });
 
-editModalClosedButton.addEventListener("click", () => {
-  closeModal(editModal);
+closeButtons.forEach((button) => {
+  // Find the closest popup only once
+  const popup = button.closest(".modal");
+
+  button.addEventListener("click", () => {
+    closeModal(popup); // Define the closeModal function to handle hiding the modal
+  });
 });
 
 cardModalButton.addEventListener("click", () => {
@@ -155,7 +156,12 @@ editFormElement.addEventListener("submit", handleEditFormSubmit);
 
 cardForm.addEventListener("submit", handleAddCardSubmit);
 
-initialCards.forEach((item) => {
+// Universal function for rendering a card
+function renderCard(item, method = "prepend") {
   const cardElement = getCardElement(item);
-  cardsList.append(cardElement);
-});
+  // Use the specified method to add the card to the list
+  cardsList[method](cardElement);
+}
+
+// Rendering initial cards using the universal function
+initialCards.forEach((item) => renderCard(item, "append"));
