@@ -75,7 +75,7 @@
 }
 
 .card__like-button_liked:hover {
-  background-image: url("../images/like-icon-likes:hover.svg");
+  background-image: url("../images/like-icon-likes_hover.svg");
   opacity: 1;
 }
 
