@@ -117,6 +117,9 @@ function handleAddCardSubmit(evt) {
     name: descriptionInput.value,
     link: cardLinkInput.value,
   };
+
+  renderCard(inputValues, "prepend");
+
   evt.target.reset();
 
   closeModal(cardModal);
