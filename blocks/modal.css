@@ -160,10 +160,6 @@
     max-width: 300px;
   }
 
-  .modal__image {
-    max-width: 320px;
-  }
-
   .modal__input {
     max-width: 276px;
   }
@@ -181,5 +177,11 @@
 
   .modal__submit-button {
     width: 100%;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .modal__image {
+    max-width: 288px;
   }
 }
