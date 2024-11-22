@@ -97,12 +97,6 @@ function getCardElement(data) {
   return cardElement;
 }
 
-const overlay = document.querySelector(".modal_opened");
-if (evt.target.classList.contains("modal")) {
-  closeModal(overlay);
-}
-closeModal(overlay);
-
 function handleOverlayClick(evt) {
   // Ensure the click is on the overlay, not the modal content
   if (evt.target === evt.currentTarget) {
@@ -128,12 +122,16 @@ function openModal(modal) {
 }
 
 function closeModal(modal) {
-  console.log(modal);
   modal.classList.remove("modal_opened");
-
   document.removeEventListener("keyup", handleEscape);
   modal.removeEventListener("click", handleOverlayClick);
 }
+
+// const overlay = document.querySelector(".modal_opened");
+// if (overlay && overlay.classList.contains("modal")) {
+//   closeModal(overlay);
+// }
+// closeModal(overlay);
 
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
