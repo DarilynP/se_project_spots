@@ -7,25 +7,31 @@ const settings = {
   errorClass: "modal__error_visible",
 };
 
-const showInputError = (formElement, inputElement, errorMsg, settings) => {
+const showInputError = (formElement, inputElement, errorMsg, config) => {
   const errorMsgID = `#${inputElement.id}-error`;
   const errorMsgElement = formElement.querySelector(errorMsgID);
-  errorMsgElement.classList.add(settings.errorClass);
-  errorMsgElement.textContent = errorMsg;
-  inputElement.classList.add(settings.inputErrorClass);
 
   if (!errorMsgElement) {
     console.error(`Error message element not found for ${errorMsgID}`);
     return; // Stop further execution if the element is missing
   }
+  errorMsgElement.classList.add(settings.errorClass);
+  errorMsgElement.textContent = errorMsg;
+  inputElement.classList.add(settings.inputErrorClass);
 };
 
-const hideInputError = (formElement, inputElement, settings) => {
+const hideInputError = (formElement, inputElement, config) => {
   const errorMsgID = `#${inputElement.id}-error`;
   const errorMsgElement = formElement.querySelector(errorMsgID);
+
+  if (!errorMsgElement) {
+    console.error(`Error message element not found for ${errorMsgID}`);
+    return; // Stop further execution if the element is missing
+  }
+
   errorMsgElement.textContent = "";
-  inputElement.classList.remove(settings.inputErrorClass);
-  errorMsgElement.classList.remove(settings.errorClass);
+  inputElement.classList.remove(config.inputErrorClass);
+  errorMsgElement.classList.remove(config.errorClass);
 };
 
 const checkInputValidity = (formElement, inputElement, config) => {
@@ -64,19 +70,18 @@ const hasInvalidInput = (inputList) => {
   });
 };
 
-const toggleButtonState = (inputList, buttonElement) => {
+const toggleButtonState = (inputList, buttonElement, config) => {
   if (hasInvalidInput(inputList)) {
     disableButton(buttonElement);
-    buttonElement.disabled = true;
   } else {
     buttonElement.disabled = false;
-    buttonElement.classList.remove(settings.inactiveButtonClass);
+    buttonElement.classList.remove(config.inactiveButtonClass);
   }
 };
 
 const disableButton = (buttonElement) => {
   buttonElement.disabled = true;
-  buttonElement.classList.add(settings.inactiveButtonClass);
+  buttonElement.classList.add(config.inactiveButtonClass);
   //add a modifer clss to the button element to make it grey
   // dont forget css
 };
@@ -87,7 +92,6 @@ const resetValidation = (formElement, inputList, config) => {
     hideInputError(formElement, input, config);
   });
 };
-
 
 function setEventListeners(form, config) {
   const inputs = Array.from(form.querySelectorAll(config.inputSelector));

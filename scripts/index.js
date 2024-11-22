@@ -26,7 +26,7 @@ const initialCards = [
 ];
 
 //pass settings object to the vailidation functions that are called on this file
-document.addEventListener("DOMContentLoaded", () => {});
+
 // Profile Elements
 const profileEditButton = document.querySelector(".profile__edit-button");
 const cardModalButton = document.querySelector(".profile__add-button");
@@ -97,13 +97,12 @@ function getCardElement(data) {
   return cardElement;
 }
 
-function handleOverlayClick(evt) {
-  const overlay = document.querySelector(".modal_opened");
-  if (evt.target.classList.contains("modal")) {
-    closeModal(overlay);
-  }
+const overlay = document.querySelector(".modal_opened");
+if (evt.target.classList.contains("modal")) {
   closeModal(overlay);
 }
+closeModal(overlay);
+
 function handleOverlayClick(evt) {
   // Ensure the click is on the overlay, not the modal content
   if (evt.target === evt.currentTarget) {
