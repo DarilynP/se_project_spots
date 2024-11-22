@@ -24,6 +24,8 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
   },
 ];
+
+//pass settings object to the vailidation functions that are called on this file
 document.addEventListener("DOMContentLoaded", () => {});
 // Profile Elements
 const profileEditButton = document.querySelector(".profile__edit-button");
@@ -40,8 +42,10 @@ const editModalNameInput = editModal.querySelector("#profile-name-input");
 const editModalDescriptionInput = editModal.querySelector(
   "#profile-description-input"
 );
+
 const cardModal = document.querySelector("#add-card-modal");
 const cardForm = cardModal.querySelector(".modal__form");
+const cardSubmitButton = cardModal.querySelector(".modal__button");
 const cardModalCloseButton = cardModal.querySelector(".modal__close");
 const descriptionInput = cardModal.querySelector("#add-card-name-input");
 const cardLinkInput = cardModal.querySelector("#add-card-link-input");
@@ -93,12 +97,43 @@ function getCardElement(data) {
   return cardElement;
 }
 
+function handleOverlayClick(evt) {
+  const overlay = document.querySelector(".modal_opened");
+  if (evt.target.classList.contains("modal")) {
+    closeModal(overlay);
+  }
+  closeModal(overlay);
+}
+function handleOverlayClick(evt) {
+  // Ensure the click is on the overlay, not the modal content
+  if (evt.target === evt.currentTarget) {
+    closeModal(evt.currentTarget);
+  }
+}
+
+function handleEscape(evt) {
+  console.log("called");
+  console.log(evt.key);
+  if (evt.key === "Escape") {
+    const activeModal = document.querySelector(".modal_opened");
+    console.log(activeModal);
+    closeModal(activeModal);
+  }
+}
+
 function openModal(modal) {
   modal.classList.add("modal_opened");
+
+  document.addEventListener("keyup", handleEscape);
+  modal.addEventListener("click", handleOverlayClick);
 }
 
 function closeModal(modal) {
+  console.log(modal);
   modal.classList.remove("modal_opened");
+
+  document.removeEventListener("keyup", handleEscape);
+  modal.removeEventListener("click", handleOverlayClick);
 }
 
 function handleEditFormSubmit(evt) {
@@ -117,17 +152,22 @@ function handleAddCardSubmit(evt) {
     name: descriptionInput.value,
     link: cardLinkInput.value,
   };
-
   renderCard(inputValues, "prepend");
-
-  evt.target.reset();
-
+  disableButton(cardSubmitButton, settings);
   closeModal(cardModal);
+  evt.target.reset();
 }
 
 profileEditButton.addEventListener("click", () => {
+  console.log("I am clicked");
   editModalNameInput.value = profileName.textContent;
   editModalDescriptionInput.value = profileDescription.textContent;
+  //optional!
+  resetValidation(
+    editFormElement,
+    [editModalNameInput, editModalDescriptionInput],
+    settings
+  );
   openModal(editModal);
 });
 
