@@ -1,6 +1,0 @@
-[submodule "se_project_todo-app"]
-	path = se_project_todo-app
-	url = https://github.com/username/se_project_todo-app.git
-[submodule "se_project_coffeeshop"]
-	path = se_project_coffeeshop
-	url = https://github.com/username/se_project_coffeeshop.git
