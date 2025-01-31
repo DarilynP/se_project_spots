@@ -6,7 +6,7 @@
     <meta name="author" content="Darilyn Peguero" />
     <meta name="description" content="Bessie Profile" />
     <meta name="keywords" content="keyword1, keyword2, keyword3" />
-
+    <link rel="stylesheet" href="./pages/index.css" />
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
 
     <title>spots</title>
@@ -15,30 +15,15 @@
   <body>
     <div class="page">
       <header class="header">
-        <img
-          src="<%= require('./images/Logo.svg') %>"
-          alt="Spot Logo"
-          class="header__logo"
-        />
+        <img src="./images/Logo.svg" alt="Spot Logo" class="header__logo" />
       </header>
 
       <main class="content">
-
-        <!-- Profile Section -->
         <section class="profile page__section">
-           <div class="profile__avatar-container">
           <img
-            src="<%= require('./images/avatar.jpg') %>"
+            src="./images/avatar.jpg"
             alt="Bessie Coleman"
             class="profile__avatar"
-            />
-            <button class="profile__avatar-btn"></button>
-            </div>
-
-            <img
-            src="<%= require('./images/light-pencil-icon.png') %>"
-            alt="Pencil Icon"
-            class="profile_pencil-icon"
           />
 
           <div class="profile__column">
@@ -46,18 +31,12 @@
             <p class="profile__description">Civil Aviator</p>
 
             <button type="button" class="profile__edit-button">
-              <img
-                src="<%= require('./images/pencil-icon.svg') %>"
-                alt="Pencil Icon"
-              />
-              Edit Profile
+              <img src="./images/pencil-icon.svg" alt="Pencil Icon" /> Edit
+              Profile
             </button>
           </div>
           <button class="profile__add-button">
-            <img
-              src="<%= require('./images/plus-icon.svg') %>"
-              alt="New Post"
-            />
+            <img src="./images/plus-icon.svg" alt="New Post" />
             New Post
           </button>
         </section>
@@ -170,43 +149,8 @@
         <p class="modal__caption"></p>
       </div>
     </div>
-
-
-    <div class="modal" id="avatar-modal">
-      <div class="modal__content">
-        <button aria-label ="close modal" type="button" class="modal__close"></button>
-         <h2 class="modal__title">Edit Avatar</h2>
-        <form name="profile-form" id="edit-avatar-form" class="modal__form">
-          <label class="modal__label" for="profile__avatar-input">
-            Avatar
-            <input
-              id="profile-avatar-input"
-              class="modal__input"
-              placeholder="Avatar goes here"
-              name="avatar"
-              required
-            />
-            <span id="profile-avatar-input-error" class="modal__error"></span>
-          </label>
-
-          <button type="submit" class="modal__button">Save</button>
-        </form>
-        </div>
-<!--
-        /*style the modal// -->
-        <div class="modal modal_opened" id="delete-modal">
-          <div class="modal__content">
-            <button
-             type="button"
-             class="modal__close"></button>
-             <button class=" modal__button" type="submit"></button>
-             <h2 class="modal__title">Are you sure you want tot delete this image</h2>
-              <form id="delete-form" class="modal__form">
-                <button class="modal__button" type="submit">Save</button>
-                <button class="modal__button" type="button">Cancel</button>
-
-              <button type="submit" class="modal__button">Save</button>
-            </form>
+    
+    <script defer src="./scripts/index.js"></script>
+    <script defer src="./scripts/validation.js"></script>
   </body>
 </html>
-npm run
