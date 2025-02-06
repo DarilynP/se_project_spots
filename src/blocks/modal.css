@@ -70,6 +70,17 @@
   border-radius: 8px;
 }
 
+.modal__container-delete{
+  width: 630px;
+  height:172px;
+  top:325px;
+  left:405px;
+  border-radius: 8px;
+  gap:32px;
+  padding: 32px 20px;
+  background-color: #FFFFFF;
+}
+
 .modal__close {
   position: absolute;
   border: none;
@@ -170,9 +181,29 @@
   border: none;
 }
 
+.modal__button_delete{
+background-color: #FF6565;
+width:156px;
+height:52px;
+padding:18px 32px 18px 32px;
+border-radius:8px;
+border:none;
+opacity:1;
+}
+
+.modal__button_cancel{
+background-color: #FFFFFF;
+}
+
 .modal__button_disabled {
   background-color: rgba(33, 33, 33, 0.5);
 }
+
+.inactive {
+  background-color: grey;
+  cursor: not-allowed;
+}
+
 
 @media screen and (max-width: 627px) {
   .modal {

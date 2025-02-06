@@ -71,23 +71,31 @@ const hasInvalidInput = (inputList) => {
 };
 
 const toggleButtonState = (inputList, buttonElement, config) => {
+  console.log("setEventListeners is running...");
+  console.log("buttonElement:", buttonElement);
+  console.log("inputList:", inputList);
+
   if (hasInvalidInput(inputList)) {
     disableButton(buttonElement, config);
   } else {
     buttonElement.disabled = false;
+    console.log(buttonElement);
     buttonElement.classList.remove(config.inactiveButtonClass);
+    buttonElement.classList.remove('inactive'); // remove modifer class
   }
 };
 
 const disableButton = (buttonElement, config) => {
   buttonElement.disabled = true;
   buttonElement.classList.add(config.inactiveButtonClass);
+  buttonElement.classList.add('inactive');
   //add a modifer clss to the button element to make it grey
-  // dont forget css
+
 };
 
+
 //optional!
-const resetValidation = (formElement, inputList, config) => {
+export const resetValidation = (formElement, inputList, config) => {
   inputList.forEach((input) => {
     hideInputError(formElement, input, config);
   });
