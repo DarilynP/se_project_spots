@@ -81,18 +81,16 @@ const toggleButtonState = (inputList, buttonElement, config) => {
     buttonElement.disabled = false;
     console.log(buttonElement);
     buttonElement.classList.remove(config.inactiveButtonClass);
-    buttonElement.classList.remove('inactive'); // remove modifer class
+    // buttonElement.classList.remove('inactive'); // remove modifer class
   }
 };
 
 const disableButton = (buttonElement, config) => {
   buttonElement.disabled = true;
   buttonElement.classList.add(config.inactiveButtonClass);
-  buttonElement.classList.add('inactive');
+  // buttonElement.classList.add('inactive');
   //add a modifer clss to the button element to make it grey
-
 };
-
 
 //optional!
 export const resetValidation = (formElement, inputList, config) => {
@@ -104,7 +102,7 @@ export const resetValidation = (formElement, inputList, config) => {
 function setEventListeners(form, config) {
   const inputs = Array.from(form.querySelectorAll(config.inputSelector));
   const submitButton = form.querySelector(config.submitButtonSelector);
-
+  console.log("Submit", submitButton);
   toggleButtonState(inputs, submitButton, config);
 
   inputs.forEach((input) => {

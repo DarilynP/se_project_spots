@@ -14,6 +14,7 @@
   z-index: 1000;
   transition: visbility 0.3s linear, opacity 0.5s linear;
   opacity: 0;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
 }
 
 .modal_opened {
@@ -69,8 +70,15 @@
   width: 100%;
   border-radius: 8px;
 }
+#modal__delete-form {
+  border-radius: 8px;
+  gap: 32px;
+  display: flex;
+  justify-content: center;
+  background-color: #ffffff;
+}
 
-.modal__container-delete{
+/* .modal__button-delete{
   width: 630px;
   height:172px;
   top:325px;
@@ -79,7 +87,7 @@
   gap:32px;
   padding: 32px 20px;
   background-color: #FFFFFF;
-}
+} */
 
 .modal__close {
   position: absolute;
@@ -115,9 +123,10 @@
 .modal__title {
   margin: 0 0 32px;
   font-weight: 500;
-  font-size: 32px;
+  font-size: 24px;
   line-height: 1;
   font-family: "Poppins", Arial, Helvetica, sans-serif;
+  text-align: center;
 }
 
 .modal__label {
@@ -178,25 +187,40 @@
   color: #fcf5e5;
   margin-top: 32px;
   border-radius: 8px;
+  /* border: none; */
+}
+
+.modal__button_delete {
+  background-color: #ff6565;
+  width: 156px;
+  height: 52px;
+  padding: 18px 32px 18px 32px;
+  border-radius: 8px;
   border: none;
+  opacity: 1;
+  color: #212121;
 }
 
-.modal__button_delete{
-background-color: #FF6565;
-width:156px;
-height:52px;
-padding:18px 32px 18px 32px;
-border-radius:8px;
-border:none;
-opacity:1;
+.modal__button_delete:hover {
+  background-color: #ff3333;
+  cursor: pointer;
 }
 
-.modal__button_cancel{
-background-color: #FFFFFF;
+.modal__button_cancel {
+  background-color: #ffffff;
+  color: #212121;
+  width: 156px;
+  height: 52px;
+}
+
+.modal__button_cancel:hover {
+  background-color: #212121;
+  cursor: pointer;
+  color: #ffffff;
 }
 
 .modal__button_disabled {
-  background-color: rgba(33, 33, 33, 0.5);
+  background-color: #212121;
 }
 
 .inactive {
@@ -204,8 +228,17 @@ background-color: #FFFFFF;
   cursor: not-allowed;
 }
 
-
 @media screen and (max-width: 627px) {
+  #modal__delete_form {
+
+      width:  156px; /* Fixed width */
+      position: absolute; /* If positioning is needed */
+      border-radius: 8px; /* Rounded corners */
+      padding: 12px; /* Padding inside the element */
+      display: flex; /* Enables gap if there are child elements */
+      gap: 20px;
+  }
+
   .modal {
     padding: 0 10px;
   }
@@ -213,6 +246,11 @@ background-color: #FFFFFF;
   .modal__container {
     padding: 12px;
     max-width: 300px;
+    gap: 20px;
+    top: 214px;
+    left: 20px;
+    width: 300px;
+    height: 208px;
   }
 
   .modal__input {
@@ -223,15 +261,36 @@ background-color: #FFFFFF;
     margin: 10px 0 34px;
   }
   .modal__close {
-    top: 12px;
-    right: 12px;
+    width: 40px;
+    height:40px;/* Fixed width */
+  position: absolute; /* If positioning is needed */
+  border-radius: 8px; /* Rounded corners */
+  padding: 12px; /* Padding inside the element */
+  gap: 20px;
+  bottom:16px;
   }
+
   .modal__label {
     margin-bottom: 24px;
   }
 
+  .modal__button_cancel{
+  width: 156px; /* Fixed width */
+  height: 52px; /* Hug height (adjusts to content, but assuming a set height) */
+  border-radius: 8px; /* Rounded corners */
+  border: 1px solid #000; /* 1px solid border (change color as needed) */
+  padding: 18px 32px 18px 32px; /* top right bottom left */
+  display: flex; /* Ensures gap works if there are child elements */
+  gap: 8px;
+  }
+
   .modal__button {
-    width: 100%;
+    width: 156px;
+    height: 52px;
+    border-radius: 8px;
+    padding: 18px 32px 18px 32px;
+  }
+  .modal__button_delete {
   }
 }
 

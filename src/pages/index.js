@@ -5,6 +5,7 @@ import {
 } from "../scripts/validation.js";
 import "../pages/index.css";
 import Api from "../utils/Api.js";
+import { setButtonText } from "../utils/helpers.js";
 
 const initialCards = [
   {
@@ -83,6 +84,9 @@ const cardSubmitButton = cardModal.querySelector(".modal__button");
 const cardModalCloseButton = cardModal.querySelector(".modal__close");
 const descriptionInput = cardModal.querySelector("#add-card-name-input");
 const cardLinkInput = cardModal.querySelector("#add-card-link-input");
+const settings = {
+  inactiveButtonClass: "button--disabled", // Ensure this class exists in your CSS
+};
 
 //avatar form element //
 const avatarModal = document.querySelector("#avatar-modal");
@@ -94,12 +98,13 @@ const avatarInput = avatarModal.querySelector("#profile-avatar-input");
 const profileAvatarContainer = document.querySelector(
   ".profile__avatar-container"
 );
-
 const avatarImage = document.querySelector(".profile__avatar");
 
 // delete form elements
 const deleteModal = document.querySelector("#delete-modal");
 const deleteform = deleteModal.querySelector(".modal__form");
+const modalCancelButton = document.querySelector(".modal__button_cancel"); // Cancel button
+const buttonElement = document.querySelector(".modal__button_delete");
 
 //select the modal
 const previewModal = document.querySelector("#preview__modal");
@@ -115,7 +120,9 @@ const cardsList = document.querySelector(".cards__list");
 let selectedCard, selectedCardId;
 
 function handleDeleteSubmit(evt) {
+  console.log("deleting card with ID", selectedCardId);
   evt.preventDefault();
+
   api
     .deleteCard(selectedCardId)
     .then(() => {
@@ -127,7 +134,7 @@ function handleDeleteSubmit(evt) {
 
 function handleDeleteCard(evt, cardElement, cardId) {
   evt.preventDefault();
-  evt.target.closest(".card").remove();
+  // evt.target.closest(".card").remove();
 
   selectedCard = cardElement;
   selectedCardId = cardId;
@@ -137,17 +144,18 @@ function handleDeleteCard(evt, cardElement, cardId) {
 }
 
 function handleLike(evt, id) {
+  // 1. Check if the card is currently liked or not
   const isLiked = evt.target.classList.contains("card__like-button_liked");
-
+  console.log(id);
+  // 2. Call the changeLikeStatus method passing the appropriate arguments
   api
-    .changeLikeStatus(id, !isLiked)
-    .then((updatedCard) => {
-      evt.target.classList.toggle(
-        "card__like-button_liked",
-        updatedCard.isLiked
-      );
+    .changeLikeStatus(id, !isLiked) // Pass the opposite of the current state
+    .then((data) => {
+      console.log(data);
+      // 3. Handle the response: toggle the 'liked' class based on the updated status
+      evt.target.classList.toggle("card__like-button_liked", data.isLiked);
     })
-    .catch(console.error);
+    .catch(console.error); // 4. Handle any errors in the catch block
 }
 
 // remove evt.target.classList.toggle("card__lik-button_active");
@@ -179,7 +187,12 @@ function getCardElement(data) {
   cardImageElement.src = data.link;
   cardImageElement.alt = data.name;
 
+  if (data.isLiked) {
+    cardLikeButton.classList.add("card__like-button_liked");
+  }
+
   cardLikeButton.addEventListener("click", () => {
+    console.log("Card ID before liking:", data._id);
     cardLikeButton.classList.toggle("card__like-button_liked");
   });
 
@@ -190,9 +203,15 @@ function getCardElement(data) {
     openModal(previewModal);
   });
   cardLikeButton.addEventListener("click", (evt) => handleLike(evt, data._id));
-  deleteButton.addEventListener("click", (evt) =>
-    handleDeleteCard(evt, data._id, cardElement)
-  );
+
+  deleteButton.addEventListener("click", (evt) => {
+    handleDeleteCard(evt, cardElement, data._id)
+  });
+
+  modalCancelButton.addEventListener("click", () => {
+    console.log("delete cancelled");
+    closeModal(deleteModal);
+  });
 
   return cardElement;
 }
@@ -235,16 +254,42 @@ function closeModal(modal) {
 
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
-  api
-    .editUserInfo({ name: editModalNameInput.value, about: descriptionInput })
-    .then((data) => {})
-    //TODO use data argument instead of the input values
 
-    .catch(console.error);
+  //change text xonten to saving...
+  const profileEditButton = evt.submitter;
+  console.log(evt.submitter);
+  // profileEditButton.textContent = "Savings..";
+  setButtonText(profileEditButton, true);
+
+  api
+    .editUserInfo({
+      name: editModalNameInput.value,
+      about: editModalDescriptionInput.value,
+    })
+    .then((data) => {
+      console.log("Updated user info:", data);
+    })
+
+    .catch(console.error)
+    .finally(() => {
+      profileEditButton.textContent = "Save";
+      setButtonText(profileEditButton, false); // Reset button text
+      //call setbuttontect instead
+    });
+    
+
+  // TODO- implemnet loading text for all other forms submissions
 
   profileName.textContent = editModalNameInput.value;
   profileDescription.textContent = editModalDescriptionInput.value;
   closeModal(editModal);
+}
+
+disableButton(cardSubmitButton, settings);
+
+function disableButton(button, settings) {
+  button.disabled = true;
+  button.classList.add(settings.inactiveButtonClass);
 }
 
 function handleAddCardSubmit(evt) {
@@ -256,10 +301,16 @@ function handleAddCardSubmit(evt) {
     name: descriptionInput.value,
     link: cardLinkInput.value,
   };
-  renderCard(inputValues, "prepend");
-  disableButton(cardSubmitButton, settings);
-  closeModal(cardModal);
-  evt.target.reset();
+
+  api
+    .addNewCard({ name: inputValues.name, link: inputValues.link })
+    .then(() => {
+      renderCard(inputValues, "prepend");
+      disableButton(cardSubmitButton, settings);
+      closeModal(cardModal);
+      evt.target.reset();
+    })
+    .catch((err) => console.error("Error adding card:", err));
 }
 
 function handleAvatarSubmit(evt) {
@@ -327,6 +378,6 @@ function renderCard(item, method = "prepend") {
 }
 
 // Rendering initial cards using the universal function
-initialCards.forEach((item) => renderCard(item, "append"));
+// initialCards.forEach((item) => renderCard(item, "append"));
 
 enableValidation(validationConfig);
