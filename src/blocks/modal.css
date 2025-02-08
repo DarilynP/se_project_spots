@@ -230,17 +230,20 @@
 
 @media screen and (max-width: 627px) {
   #modal__delete_form {
-
-      width:  156px; /* Fixed width */
-      position: absolute; /* If positioning is needed */
-      border-radius: 8px; /* Rounded corners */
-      padding: 12px; /* Padding inside the element */
-      display: flex; /* Enables gap if there are child elements */
-      gap: 20px;
+    width: 156px; /* Fixed width */
+    position: absolute; /* If positioning is needed */
+    border-radius: 8px; /* Rounded corners */
+    padding: 12px; /* Padding inside the element */
+    display: flex; /* Enables gap if there are child elements */
+    gap: 12px;
+    flex-direction: column;
   }
 
   .modal {
     padding: 0 10px;
+  }
+
+  .modal__form {
   }
 
   .modal__container {
@@ -250,7 +253,6 @@
     top: 214px;
     left: 20px;
     width: 300px;
-    height: 208px;
   }
 
   .modal__input {
@@ -262,26 +264,27 @@
   }
   .modal__close {
     width: 40px;
-    height:40px;/* Fixed width */
-  position: absolute; /* If positioning is needed */
-  border-radius: 8px; /* Rounded corners */
-  padding: 12px; /* Padding inside the element */
-  gap: 20px;
-  bottom:16px;
+    height: 40px; /* Fixed width */
+    position: absolute; /* If positioning is needed */
+    border-radius: 8px; /* Rounded corners */
+    padding: 12px; /* Padding inside the element */
+    gap: 20px;
+    bottom: 16px;
   }
 
   .modal__label {
     margin-bottom: 24px;
   }
 
-  .modal__button_cancel{
-  width: 156px; /* Fixed width */
-  height: 52px; /* Hug height (adjusts to content, but assuming a set height) */
-  border-radius: 8px; /* Rounded corners */
-  border: 1px solid #000; /* 1px solid border (change color as needed) */
-  padding: 18px 32px 18px 32px; /* top right bottom left */
-  display: flex; /* Ensures gap works if there are child elements */
-  gap: 8px;
+  .modal__button_cancel {
+    width: 156px; /* Fixed width */
+    height: 52px; /* Hug height (adjusts to content, but assuming a set height) */
+    border-radius: 8px; /* Rounded corners */
+    border: 1px solid #000; /* 1px solid border (change color as needed) */
+    padding: 18px 32px 18px 32px; /* top right bottom left */
+    display: flex; /* Ensures gap works if there are child elements */
+    gap: 8px;
+    margin: 0px;
   }
 
   .modal__button {
@@ -291,6 +294,7 @@
     padding: 18px 32px 18px 32px;
   }
   .modal__button_delete {
+    margin: 0px;
   }
 }
 
