@@ -125,7 +125,10 @@
       </div>
       <div class="modal" id="add-card-modal">
         <div class="modal__container">
-          <button type="button" class="modal__close"></button>
+          <button
+            type="button"
+            class="modal__close modal__close_newpost"
+          ></button>
           <h2 class="modal__title">New post</h2>
           <form id="card-form" class="modal__form">
             <label class="modal__label" for="add-card-link-input">
@@ -158,9 +161,10 @@
           </form>
         </div>
       </div>
+
       <div class="modal" id="preview__modal">
         <div class="modal__content modal__content_type_preview">
-          <button`
+          <button
             aria-label="Close modal"
             class="modal__close modal__close_type_preview"
             type="button"
@@ -192,7 +196,10 @@
               <span id="profile-avatar-input-error" class="modal__error"></span>
             </label>
 
-            <button type="submit" class="modal__button modal__button_disabled">
+            <button
+              type="submit"
+              class="modal__button modal__button_disabled modal__button_save"
+            >
               Save
             </button>
           </form>
@@ -206,21 +213,23 @@
             type="button"
             class="modal__close modal close preview modal__close_delete"
           ></button>
-          <h3 class="modal__title">
+          <h3 class="modal__title modal__title_delete">
             Are you sure you want to delete this image?
           </h3>
           <form class="modal__form" id="modal__delete-form">
-            <button type="submit" class="modal__button modal__button_delete">
-              Delete
-            </button>
-            <button type="button" class="modal__button modal__button_cancel">
-              Cancel
-            </button>
-            <button
-              aria-label="Close modal"
-              class="modal__close modal__close_type_preview"
-              type="button"
-            ></button>
+            <div class="modal__buttons">
+              <button type="submit" class="modal__button modal__button_delete">
+                Delete
+              </button>
+              <button type="button" class="modal__button modal__button_cancel">
+                Cancel
+              </button>
+              <button
+                aria-label="Close modal"
+                class="modal__close modal__close_delete"
+                type="button"
+              ></button>
+            </div>
           </form>
         </div>
       </div>

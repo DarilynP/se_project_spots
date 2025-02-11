@@ -88,6 +88,10 @@ const settings = {
   inactiveButtonClass: "button--disabled", // Ensure this class exists in your CSS
 };
 
+const editAvatarForm = document.getElementById("edit-avatar-form");
+const SaveButton = document.querySelector(".modal__button_save");
+console.log("SaveButton:", SaveButton);
+
 //avatar form element //
 const avatarModal = document.querySelector("#avatar-modal");
 const avatarForm = avatarModal.querySelector(".modal__form");
@@ -158,13 +162,6 @@ function handleLike(evt, id) {
     .catch(console.error); // 4. Handle any errors in the catch block
 }
 
-// remove evt.target.classList.toggle("card__lik-button_active");
-// 1. check if card is currenlt liked or not
-// const isliked = ??
-/// 2.call the changelikestatus method passing the approproate arugments
-// 3. handle the respinse (.then and .catch)
-// 4 in the .then, toggle the active class
-
 function handleImageClick(data) {
   previewImage.src = data.link;
   previewImage.alt = data.name;
@@ -205,7 +202,7 @@ function getCardElement(data) {
   cardLikeButton.addEventListener("click", (evt) => handleLike(evt, data._id));
 
   deleteButton.addEventListener("click", (evt) => {
-    handleDeleteCard(evt, cardElement, data._id)
+    handleDeleteCard(evt, cardElement, data._id);
   });
 
   modalCancelButton.addEventListener("click", () => {
@@ -246,37 +243,23 @@ function closeModal(modal) {
   modal.removeEventListener("click", handleOverlayClick);
 }
 
-// const overlay = document.querySelector(".modal_opened");
-// if (overlay && overlay.classList.contains("modal")) {
-//   closeModal(overlay);
-// }
-// closeModal(overlay);
-
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
+  console.log("handleEditFormSubmit triggered!");
 
   //change text xonten to saving...
-  const profileEditButton = evt.submitter;
-  console.log(evt.submitter);
+  const profileEditButton = evt.target;
+  console.log("submitter button:", profileEditButton);
   // profileEditButton.textContent = "Savings..";
+  SaveButton.textContent = "Saving...";
+
+
   setButtonText(profileEditButton, true);
 
-  api
-    .editUserInfo({
-      name: editModalNameInput.value,
-      about: editModalDescriptionInput.value,
-    })
-    .then((data) => {
-      console.log("Updated user info:", data);
-    })
-
-    .catch(console.error)
-    .finally(() => {
-      profileEditButton.textContent = "Save";
-      setButtonText(profileEditButton, false); // Reset button text
-      //call setbuttontect instead
-    });
-    
+  // Simulate save process with a delay
+  setTimeout(() => {
+    setButtonText(profileEditButton, false);
+  }, 2000); // Change back after 2 seconds
 
   // TODO- implemnet loading text for all other forms submissions
 
@@ -331,11 +314,12 @@ function handleAvatarSubmit(evt) {
     }); //  Properly closed .then() and added .catch()
 }
 
+// All EventListeners
 profileEditButton.addEventListener("click", () => {
   console.log("I am clicked");
   editModalNameInput.value = profileName.textContent;
   editModalDescriptionInput.value = profileDescription.textContent;
-  //optional!
+
   resetValidation(
     editFormElement,
     [editModalNameInput, editModalDescriptionInput],
@@ -356,6 +340,14 @@ closeButtons.forEach((button) => {
 cardModalButton.addEventListener("click", () => {
   openModal(cardModal);
 });
+
+// SaveButton.addEventListener("click", function(evt){
+// console.log("Event listener attached to SaveButton");
+
+// handleEditFormSubmit(evt);
+// });
+
+// editAvatarForm.addEventListener("submit", handleEditFormSubmit);
 
 editFormElement.addEventListener("submit", handleEditFormSubmit);
 

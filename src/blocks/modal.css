@@ -70,24 +70,19 @@
   width: 100%;
   border-radius: 8px;
 }
+
 #modal__delete-form {
   border-radius: 8px;
   gap: 32px;
   display: flex;
   justify-content: center;
   background-color: #ffffff;
+  align-items: center;
 }
 
-/* .modal__button-delete{
-  width: 630px;
-  height:172px;
-  top:325px;
-  left:405px;
-  border-radius: 8px;
-  gap:32px;
-  padding: 32px 20px;
-  background-color: #FFFFFF;
-} */
+.modal__button_save {
+  margin: 0;
+}
 
 .modal__close {
   position: absolute;
@@ -97,14 +92,35 @@
   background-image: url(../images/X_mark.png);
   background-color: transparent;
   cursor: pointer;
-  top: 30px;
-  right: 50px;
+  top: 40px;
+  right: 40px;
   opacity: 0.4;
 }
 .modal__close:hover {
   opacity: 1;
 }
 
+/* .modal__close_newpost {
+  background-image: url(../images/close_button_dark.png);
+  top: 0;
+  right: -52.5px;
+  opacity: 1;
+  padding: 0;
+  position: absolute;
+  width: 40px;
+  height: 40px;
+} */
+
+.modal__close_delete {
+  background-image: url(../images/close-light.png);
+  top: 0;
+  right: -52.5px;
+  opacity: 1;
+  padding: 0;
+  position: absolute;
+  width: 40px;
+  height: 40px;
+}
 .modal__close_type_preview {
   background-image: url(../images/close-light.png);
   top: 0;
@@ -126,7 +142,7 @@
   font-size: 24px;
   line-height: 1;
   font-family: "Poppins", Arial, Helvetica, sans-serif;
-  text-align: center;
+  text-align: left;
 }
 
 .modal__label {
@@ -175,6 +191,12 @@
   margin-top: 8px;
 }
 
+.modal__buttons {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .modal__button {
   width: 156px;
   padding: 18px 0;
@@ -199,6 +221,7 @@
   border: none;
   opacity: 1;
   color: #212121;
+  margin-top: 0;
 }
 
 .modal__button_delete:hover {
@@ -211,6 +234,7 @@
   color: #212121;
   width: 156px;
   height: 52px;
+  padding: 18px 32px 18px 32px;
 }
 
 .modal__button_cancel:hover {
@@ -221,6 +245,7 @@
 
 .modal__button_disabled {
   background-color: #212121;
+  margin-top: 0;
 }
 
 .inactive {
@@ -229,21 +254,19 @@
 }
 
 @media screen and (max-width: 627px) {
-  #modal__delete_form {
+  #modal__delete-form {
     width: 156px; /* Fixed width */
-    position: absolute; /* If positioning is needed */
     border-radius: 8px; /* Rounded corners */
     padding: 12px; /* Padding inside the element */
     display: flex; /* Enables gap if there are child elements */
-    gap: 12px;
+    margin: auto;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   .modal {
     padding: 0 10px;
-  }
-
-  .modal__form {
   }
 
   .modal__container {
@@ -255,6 +278,21 @@
     width: 300px;
   }
 
+  /* .modal__close_newpost {
+    background-image: url(../images/close_button_dark.png);
+    top: 0;
+    right: -52.5px;
+    opacity: 1;
+    padding: 0;
+    position: absolute;
+    width: 40px;
+    height: 40px;
+  } */
+
+  .modal__title_delete {
+    text-align: center;
+  }
+
   .modal__input {
     max-width: 276px;
   }
@@ -263,17 +301,22 @@
     margin: 10px 0 34px;
   }
   .modal__close {
-    width: 40px;
-    height: 40px; /* Fixed width */
     position: absolute; /* If positioning is needed */
     border-radius: 8px; /* Rounded corners */
     padding: 12px; /* Padding inside the element */
     gap: 20px;
     bottom: 16px;
+    opacity: 40%;
+    right: 2px;
+    top: 15px;
   }
 
   .modal__label {
     margin-bottom: 24px;
+  }
+
+  .modal__button_save {
+    margin: 0;
   }
 
   .modal__button_cancel {
@@ -282,9 +325,15 @@
     border-radius: 8px; /* Rounded corners */
     border: 1px solid #000; /* 1px solid border (change color as needed) */
     padding: 18px 32px 18px 32px; /* top right bottom left */
-    display: flex; /* Ensures gap works if there are child elements */
     gap: 8px;
     margin: 0px;
+  }
+
+  .modal__buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
   }
 
   .modal__button {

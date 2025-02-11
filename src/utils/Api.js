@@ -34,16 +34,16 @@ class Api {
     );
   }
 
-  editAvatarInfo(avatar) {
+   async editAvatarInfo(avatar) {
     console.log(avatar);
-    return fetch(`${this._baseUrl}/users/me/avatar`, {
+    const res = await fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({ avatar }),
-    }).then((res) =>
-      res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
-    )
-    
+    });
+    return await (
+      res.ok ? res.json() : Promise.reject(`Error: ${res.status}`));
+
   }
 
   addNewCard({name, link}) {

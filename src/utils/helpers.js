@@ -3,13 +3,18 @@ export function setButtonText(
   isLoading,
   defaultText = "Save",
   loadingText = "Saving..."
-
 ) {
+  if (!button) {
+    console.error("Button element not provided!");
+    return;
+  }
+
   if (isLoading) {
-    //set the loading text
-    console.log("setting text to ${loadingText}");
+    button.textContent = loadingText;
+    console.log(`Setting text to: ${loadingText}`);
   } else {
-    //set not loading text
+    button.textContent = defaultText;
+    console.log(`Setting text to: ${defaultText}`);
   }
 }
 
