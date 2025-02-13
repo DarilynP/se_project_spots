@@ -1,0 +1,29 @@
+.page {
+  background-color: rgba(252, 245, 229, 1);
+  min-height: 100vh;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+}
+
+.page__section {
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.page__subtitle {
+  font-style: italic;
+}
+
+.page__image {
+  width: 800px;
+}
+
+.page__image_achievements {
+  background-image: url(../images/achievements.svg);
+  height: 444px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
