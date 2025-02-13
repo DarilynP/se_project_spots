@@ -7,33 +7,6 @@ import "../pages/index.css";
 import Api from "../utils/Api.js";
 import { setButtonText } from "../utils/helpers.js";
 
-const initialCards = [
-  {
-    name: "Val Thorens",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/1-photo-by-moritz-feldmann-from-pexels.jpg",
-  },
-  {
-    name: "Restaurant terrace",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/2-photo-by-ceiline-from-pexels.jpg",
-  },
-  {
-    name: "An outdoor cafe",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/3-photo-by-tubanur-dogan-from-pexels.jpg",
-  },
-  {
-    name: "A very long bridge, over the forest and through the trees",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/4-photo-by-maurice-laschet-from-pexels.jpg",
-  },
-  {
-    name: "Tunnel with morning light",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/5-photo-by-van-anh-nguyen-from-pexels.jpg",
-  },
-  {
-    name: "Mountain house",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
-  },
-];
-
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
@@ -47,16 +20,24 @@ api
   .getAppInfo()
   .then(([userInfo, cards]) => {
     console.log(cards);
+
+    // render card
     cards.forEach((card) => renderCard(card, "append"));
     // initialCards.forEach((item) => renderCard(item, "append"));
 
-    //handle the user's information
-    //-set the src of avatar image
-    // - set the textcontent of both the text elements
+    const avatarElement = document.querySelector(".profile__avatar");
+    const nameElement = document.querySelector(".profile__name");
+    const aboutElement = document.querySelector(".profile__about");
+
+    if (userInfo) {
+      avatarElement.src = userInfo.avatar; // Set avatar image
+      nameElement.textContent = userInfo.name; // Set user's name
+      //   aboutElement.textContent = userInfo.about; // Set user's bio/description
+    }
   })
 
   .catch((err) => {
-    console.log(err);
+    console.log("error fetching data:", err);
   });
 
 //pass settings object to the vailidation functions that are called on this file
@@ -108,7 +89,7 @@ const avatarImage = document.querySelector(".profile__avatar");
 const deleteModal = document.querySelector("#delete-modal");
 const deleteform = deleteModal.querySelector(".modal__form");
 const modalCancelButton = document.querySelector(".modal__button_cancel"); // Cancel button
-const buttonElement = document.querySelector(".modal__button_delete");
+const modalDeleteButton = document.querySelector(".modal__button_delete");
 
 //select the modal
 const previewModal = document.querySelector("#preview__modal");
@@ -126,10 +107,13 @@ let selectedCard, selectedCardId;
 function handleDeleteSubmit(evt) {
   console.log("deleting card with ID", selectedCardId);
   evt.preventDefault();
+  setButtonText(modalDeleteButton, true, "Delete", "Deleting...");
 
   api
     .deleteCard(selectedCardId)
     .then(() => {
+      setButtonText(modalDeleteButton, false, "Delete");
+
       selectedCard.remove();
       closeModal(deleteModal);
     })
@@ -138,7 +122,6 @@ function handleDeleteSubmit(evt) {
 
 function handleDeleteCard(evt, cardElement, cardId) {
   evt.preventDefault();
-  // evt.target.closest(".card").remove();
 
   selectedCard = cardElement;
   selectedCardId = cardId;
@@ -160,13 +143,6 @@ function handleLike(evt, id) {
       evt.target.classList.toggle("card__like-button_liked", data.isLiked);
     })
     .catch(console.error); // 4. Handle any errors in the catch block
-}
-
-function handleImageClick(data) {
-  previewImage.src = data.link;
-  previewImage.alt = data.name;
-  previewModalCaptionElement.textContent = data.namr;
-  openModal(previewModal);
 }
 
 function getCardElement(data) {
@@ -243,69 +219,97 @@ function closeModal(modal) {
   modal.removeEventListener("click", handleOverlayClick);
 }
 
-function handleEditFormSubmit(evt) {
-  evt.preventDefault();
-  console.log("handleEditFormSubmit triggered!");
-
-  //change text xonten to saving...
-  const profileEditButton = evt.target;
-  console.log("submitter button:", profileEditButton);
-  // profileEditButton.textContent = "Savings..";
-  SaveButton.textContent = "Saving...";
-
-
-  setButtonText(profileEditButton, true);
-
-  // Simulate save process with a delay
-  setTimeout(() => {
-    setButtonText(profileEditButton, false);
-  }, 2000); // Change back after 2 seconds
-
-  // TODO- implemnet loading text for all other forms submissions
-
-  profileName.textContent = editModalNameInput.value;
-  profileDescription.textContent = editModalDescriptionInput.value;
-  closeModal(editModal);
-}
-
-disableButton(cardSubmitButton, settings);
-
 function disableButton(button, settings) {
   button.disabled = true;
   button.classList.add(settings.inactiveButtonClass);
 }
 
+function handleEditFormSubmit(evt) {
+  evt.preventDefault();
+  console.log("handleEditFormSubmit triggered!");
+
+  // Change button text to "Saving..."
+  const profileSubmitButton = evt.target.querySelector(".modal__button");
+  setButtonText(profileSubmitButton, true);
+
+  // Make API call to edit user info
+  api
+    .editUserInfo({
+      name: editModalNameInput.value,
+      about: editModalDescriptionInput.value,
+    })
+    .then((data) => {
+      console.log("Profile updated successfully!", data);
+
+      // Update the profile name and description on the page
+      profileName.textContent = data.name;
+      profileDescription.textContent = data.about;
+
+      // Close the modal
+      closeModal(editModal);
+    })
+    .catch((err) => {
+      console.error("Error editing profile", err);
+    })
+    .finally(() => {
+      // Reset button text after API call completes
+      setButtonText(profileSubmitButton, false);
+    });
+}
+
+disableButton(cardSubmitButton, settings);
+
 function handleAddCardSubmit(evt) {
   evt.preventDefault();
-  //TODO -make image appear when adding card
   console.log(descriptionInput.value);
   console.log(cardLinkInput.value);
+
   const inputValues = {
     name: descriptionInput.value,
     link: cardLinkInput.value,
   };
 
+  const cardModalButton = evt.submitter; // Ensure correct button reference
+
+  // Change button text to "Saving..."
+  setButtonText(cardModalButton, true);
+
   api
-    .addNewCard({ name: inputValues.name, link: inputValues.link })
-    .then(() => {
-      renderCard(inputValues, "prepend");
-      disableButton(cardSubmitButton, settings);
-      closeModal(cardModal);
+    .addNewCard(inputValues)
+    .then((data) => {
+      renderCard(data, "prepend"); // Use API response instead of inputValues
+
+      // Reset form inputs
       evt.target.reset();
+
+      // Disable submit button after submission
+      disableButton(cardSubmitButton, settings);
+
+      // Close the modal
+      closeModal(cardModal);
     })
-    .catch((err) => console.error("Error adding card:", err));
+    .catch((err) => {
+      console.error("Error adding card:", err);
+    })
+    .finally(() => {
+      // Reset button text after API call completes
+      setButtonText(cardModalButton, false);
+    });
 }
 
 function handleAvatarSubmit(evt) {
   evt.preventDefault(); // Prevent default form submission behavior
 
   console.log("avatarInput.value", avatarInput.value);
+  setButtonText(avatarSubmitButton, true);
 
   api
     .editAvatarInfo(avatarInput.value) // wrapping the object
     .then((data) => {
       console.log("data.avatar", data.avatar);
       avatarImage.src = data.avatar;
+      setButtonText(avatarSubmitButton, false);
+      closeModal(avatarModal);
       // closing the modal
       // resetting validation, disabling the button, etc.
     })
@@ -343,6 +347,7 @@ cardModalButton.addEventListener("click", () => {
 
 // SaveButton.addEventListener("click", function(evt){
 // console.log("Event listener attached to SaveButton");
+// });
 
 // handleEditFormSubmit(evt);
 // });

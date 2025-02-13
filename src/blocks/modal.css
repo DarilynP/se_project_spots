@@ -71,7 +71,7 @@
   border-radius: 8px;
 }
 
-#modal__delete-form {
+.modal__form_delete {
   border-radius: 8px;
   gap: 32px;
   display: flex;
@@ -194,7 +194,7 @@
 .modal__buttons {
   display: flex;
   justify-content: center;
-  flex-direction: column;
+  gap: 20px;
 }
 
 .modal__button {
@@ -235,6 +235,7 @@
   width: 156px;
   height: 52px;
   padding: 18px 32px 18px 32px;
+  margin-top: 0;
 }
 
 .modal__button_cancel:hover {
@@ -254,7 +255,7 @@
 }
 
 @media screen and (max-width: 627px) {
-  #modal__delete-form {
+  .modal__delete-form {
     width: 156px; /* Fixed width */
     border-radius: 8px; /* Rounded corners */
     padding: 12px; /* Padding inside the element */
@@ -298,7 +299,7 @@
   }
   .modal__title {
     font-size: 20px;
-    margin: 10px 0 34px;
+    margin: 10px 0 20px;
   }
   .modal__close {
     position: absolute; /* If positioning is needed */
@@ -327,6 +328,11 @@
     padding: 18px 32px 18px 32px; /* top right bottom left */
     gap: 8px;
     margin: 0px;
+  }
+
+  .modal__close_delete {
+    background-image: url(../images/close-light.png);
+    top: -40px;
   }
 
   .modal__buttons {
