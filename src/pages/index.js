@@ -6,6 +6,8 @@ import {
 import "../pages/index.css";
 import Api from "../utils/Api.js";
 import { setButtonText } from "../utils/helpers.js";
+import { disableButton } from '../scripts/validation.js';
+
 
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
@@ -32,7 +34,7 @@ api
     if (userInfo) {
       avatarElement.src = userInfo.avatar; // Set avatar image
       nameElement.textContent = userInfo.name; // Set user's name
-      //   aboutElement.textContent = userInfo.about; // Set user's bio/description
+      aboutElement.textContent = userInfo.about; // Set user's bio/description
     }
   })
 
@@ -70,8 +72,8 @@ const settings = {
 };
 
 const editAvatarForm = document.getElementById("edit-avatar-form");
-const SaveButton = document.querySelector(".modal__button_save");
-console.log("SaveButton:", SaveButton);
+const saveButton = document.querySelector(".modal__button_save");
+console.log("SaveButton:", saveButton);
 
 //avatar form element //
 const avatarModal = document.querySelector("#avatar-modal");
@@ -110,15 +112,18 @@ function handleDeleteSubmit(evt) {
   setButtonText(modalDeleteButton, true, "Delete", "Deleting...");
 
   api
-    .deleteCard(selectedCardId)
-    .then(() => {
-      setButtonText(modalDeleteButton, false, "Delete");
-
-      selectedCard.remove();
-      closeModal(deleteModal);
-    })
-    .catch(console.error);
+  .deleteCard(selectedCardId)
+  .then(() => {
+    selectedCard.remove();
+    closeModal(deleteModal);
+  })
+  .catch(console.error) // Corrected the catch syntax
+  .finally(() => {
+    // Ensure the button text is reset to the default, regardless of success or failure
+    setButtonText(modalDeleteButton, false, "Delete");
+  });
 }
+
 
 function handleDeleteCard(evt, cardElement, cardId) {
   evt.preventDefault();
@@ -219,17 +224,14 @@ function closeModal(modal) {
   modal.removeEventListener("click", handleOverlayClick);
 }
 
-function disableButton(button, settings) {
-  button.disabled = true;
-  button.classList.add(settings.inactiveButtonClass);
-}
 
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
   console.log("handleEditFormSubmit triggered!");
 
   // Change button text to "Saving..."
-  const profileSubmitButton = evt.target.querySelector(".modal__button");
+  const profileSubmitButton = evt.submitter;
+
   setButtonText(profileSubmitButton, true);
 
   // Make API call to edit user info

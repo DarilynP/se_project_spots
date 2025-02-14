@@ -245,8 +245,9 @@
 }
 
 .modal__button_disabled {
-  background-color: #212121;
+  background-color: #0b0b0b;
   margin-top: 0;
+  opacity: 0.6;
 }
 
 .inactive {
@@ -254,7 +255,7 @@
   cursor: not-allowed;
 }
 
-@media screen and (max-width: 627px) {
+@media screen and (max-width: 320px) {
   .modal__delete-form {
     width: 156px; /* Fixed width */
     border-radius: 8px; /* Rounded corners */
@@ -289,6 +290,11 @@
     width: 40px;
     height: 40px;
   } */
+
+  .modal__close_type_preview {
+    top: -40px;
+    background-image: url(../images/close-light.png);
+  }
 
   .modal__title_delete {
     text-align: center;

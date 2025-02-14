@@ -42,6 +42,7 @@
 .profile__column {
   display: flex;
   flex-direction: column;
+  margin-left: 20px;
 }
 
 .profile__name {
