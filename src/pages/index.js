@@ -6,8 +6,7 @@ import {
 import "../pages/index.css";
 import Api from "../utils/Api.js";
 import { setButtonText } from "../utils/helpers.js";
-import { disableButton } from '../scripts/validation.js';
-
+import { disableButton } from "../scripts/validation.js";
 
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
@@ -47,17 +46,16 @@ api
 // Profile Elements
 const profileEditButton = document.querySelector(".profile__edit-button");
 const cardModalButton = document.querySelector(".profile__add-button");
-const avatarModalButton = document.querySelector(".profile__avatar-button");
 const profileDescription = document.querySelector(".profile__description");
 const profileName = document.querySelector(".profile__name");
 
 //Form Elements
-const editModal = document.querySelector("#edit-profile-modal");
-const editFormElement = editModal.querySelector(".modal__form");
 const editProfileModal = document.querySelector("#edit-profile-modal");
+const editFormElement = editProfileModal.querySelector(".modal__form");
+
 const closeButtons = document.querySelectorAll(".modal__close");
-const editModalNameInput = editModal.querySelector("#profile-name-input");
-const editModalDescriptionInput = editModal.querySelector(
+const editModalNameInput = editProfileModal.querySelector("#profile-name-input");
+const editModalDescriptionInput = editProfileModal.querySelector(
   "#profile-description-input"
 );
 
@@ -67,20 +65,13 @@ const cardSubmitButton = cardModal.querySelector(".modal__button");
 const cardModalCloseButton = cardModal.querySelector(".modal__close");
 const descriptionInput = cardModal.querySelector("#add-card-name-input");
 const cardLinkInput = cardModal.querySelector("#add-card-link-input");
-const settings = {
-  inactiveButtonClass: "button--disabled", // Ensure this class exists in your CSS
-};
-
-const editAvatarForm = document.getElementById("edit-avatar-form");
-const saveButton = document.querySelector(".modal__button_save");
-console.log("SaveButton:", saveButton);
+const avatarSaveButton = document.querySelector(".modal__button_save");
+console.log("avatarSaveButton:", avatarSaveButton);
 
 //avatar form element //
 const avatarModal = document.querySelector("#avatar-modal");
 const avatarForm = avatarModal.querySelector(".modal__form");
 const avatarSubmitButton = avatarModal.querySelector(".modal__button");
-console.log();
-const avatarModalCloseButton = avatarModal.querySelector(".modal__close");
 const avatarInput = avatarModal.querySelector("#profile-avatar-input");
 const profileAvatarContainer = document.querySelector(
   ".profile__avatar-container"
@@ -98,7 +89,7 @@ const previewModal = document.querySelector("#preview__modal");
 const previewModalImageElement = previewModal.querySelector(".modal__image");
 const previewModalCaptionElement =
   previewModal.querySelector(".modal__caption");
-const previewModalCloseButton = previewModal.querySelector(".modal__close");
+
 
 //Card related elements
 const cardTemplate = document.querySelector("#card-template");
@@ -112,18 +103,17 @@ function handleDeleteSubmit(evt) {
   setButtonText(modalDeleteButton, true, "Delete", "Deleting...");
 
   api
-  .deleteCard(selectedCardId)
-  .then(() => {
-    selectedCard.remove();
-    closeModal(deleteModal);
-  })
-  .catch(console.error) // Corrected the catch syntax
-  .finally(() => {
-    // Ensure the button text is reset to the default, regardless of success or failure
-    setButtonText(modalDeleteButton, false, "Delete");
-  });
+    .deleteCard(selectedCardId)
+    .then(() => {
+      selectedCard.remove();
+      closeModal(deleteModal);
+    })
+    .catch(console.error) // Corrected the catch syntax
+    .finally(() => {
+      // Ensure the button text is reset to the default, regardless of success or failure
+      setButtonText(modalDeleteButton, false, "Delete");
+    });
 }
-
 
 function handleDeleteCard(evt, cardElement, cardId) {
   evt.preventDefault();
@@ -224,7 +214,6 @@ function closeModal(modal) {
   modal.removeEventListener("click", handleOverlayClick);
 }
 
-
 function handleEditFormSubmit(evt) {
   evt.preventDefault();
   console.log("handleEditFormSubmit triggered!");
@@ -248,7 +237,7 @@ function handleEditFormSubmit(evt) {
       profileDescription.textContent = data.about;
 
       // Close the modal
-      closeModal(editModal);
+      closeModal(editProfileModal);
     })
     .catch((err) => {
       console.error("Error editing profile", err);
@@ -259,7 +248,6 @@ function handleEditFormSubmit(evt) {
     });
 }
 
-disableButton(cardSubmitButton, settings);
 
 function handleAddCardSubmit(evt) {
   evt.preventDefault();
@@ -331,7 +319,7 @@ profileEditButton.addEventListener("click", () => {
     [editModalNameInput, editModalDescriptionInput],
     validationConfig
   );
-  openModal(editModal);
+  openModal(editProfileModal);
 });
 
 closeButtons.forEach((button) => {
@@ -347,14 +335,6 @@ cardModalButton.addEventListener("click", () => {
   openModal(cardModal);
 });
 
-// SaveButton.addEventListener("click", function(evt){
-// console.log("Event listener attached to SaveButton");
-// });
-
-// handleEditFormSubmit(evt);
-// });
-
-// editAvatarForm.addEventListener("submit", handleEditFormSubmit);
 
 editFormElement.addEventListener("submit", handleEditFormSubmit);
 
@@ -376,7 +356,5 @@ function renderCard(item, method = "prepend") {
   cardsList[method](cardElement);
 }
 
-// Rendering initial cards using the universal function
-// initialCards.forEach((item) => renderCard(item, "append"));
 
 enableValidation(validationConfig);

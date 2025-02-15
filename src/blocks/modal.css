@@ -137,12 +137,12 @@
 }
 
 .modal__title {
-  margin: 0 0 32px;
+  margin: 0px;
   font-weight: 500;
-  font-size: 24px;
+  font-size: 32px;
   line-height: 1;
   font-family: "Poppins", Arial, Helvetica, sans-serif;
-  text-align: left;
+  color: #212121;
 }
 
 .modal__label {
@@ -255,7 +255,7 @@
   cursor: not-allowed;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 480px) {
   .modal__delete-form {
     width: 156px; /* Fixed width */
     border-radius: 8px; /* Rounded corners */
@@ -269,15 +269,14 @@
 
   .modal {
     padding: 0 10px;
+    max-width: 320px;
   }
 
   .modal__container {
     padding: 12px;
     max-width: 300px;
     gap: 20px;
-    top: 214px;
-    left: 20px;
-    width: 300px;
+    /* width: 300px; */
   }
 
   /* .modal__close_newpost {
@@ -290,11 +289,6 @@
     width: 40px;
     height: 40px;
   } */
-
-  .modal__close_type_preview {
-    top: -40px;
-    background-image: url(../images/close-light.png);
-  }
 
   .modal__title_delete {
     text-align: center;
@@ -316,6 +310,12 @@
     opacity: 40%;
     right: 2px;
     top: 15px;
+  }
+
+  .modal__close_type_preview {
+    top: -40px;
+    background-image: url(../images/close-light.png);
+    opacity: 1;
   }
 
   .modal__label {
