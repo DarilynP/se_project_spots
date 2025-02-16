@@ -1,0 +1,350 @@
+.modal {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  visibility: hidden;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  transition: visbility 0.3s linear, opacity 0.5s linear;
+  opacity: 0;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+}
+
+.modal_opened {
+  visibility: visible;
+  display: flex;
+  opacity: 1;
+  transition-delay: 0s;
+}
+
+.modal_is-opened {
+  display: block;
+}
+
+.modal__content_type_preview {
+  padding: 0;
+}
+
+.modal__image {
+  max-width: 80vw;
+  max-height: 80vh;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.modal__caption {
+  color: #fff;
+  background-color: #212121;
+  margin: 4px 8px 4px 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 24px;
+  border-radius: 8px;
+  position: absolute;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  line-height: 24px;
+  max-width: 500px;
+}
+
+.modal__content {
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+}
+
+.modal__container {
+  background: #fff;
+  padding: 32px 50px;
+  max-width: 730px;
+  position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.modal__form_delete {
+  border-radius: 8px;
+  gap: 32px;
+  display: flex;
+  justify-content: center;
+  background-color: #ffffff;
+  align-items: center;
+}
+
+.modal__button_save {
+  margin: 0;
+}
+
+.modal__close {
+  position: absolute;
+  border: none;
+  width: 40px;
+  height: 40px;
+  background-image: url(../images/X_mark.png);
+  background-color: transparent;
+  cursor: pointer;
+  top: 40px;
+  right: 40px;
+  opacity: 0.4;
+}
+.modal__close:hover {
+  opacity: 1;
+}
+
+.modal__close_delete {
+  background-image: url(../images/close-light.png);
+  top: 0;
+  right: -52.5px;
+  opacity: 1;
+  padding: 0;
+  position: absolute;
+  width: 40px;
+  height: 40px;
+}
+.modal__close_type_preview {
+  background-image: url(../images/close-light.png);
+  top: 0;
+  right: -52.5px;
+  opacity: 1;
+  padding: 0;
+  position: absolute;
+  width: 40px;
+  height: 40px;
+}
+
+.modal__close_type_preview:hover {
+  opacity: 0.4;
+}
+
+.modal__title {
+  margin-top: 0px;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 1;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  color: #212121;
+}
+
+.modal__label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 32px;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 17.6px;
+  margin-bottom: 32px;
+  display: block;
+}
+
+.modal__input {
+  padding: 16px 12px;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 20px;
+  display: block;
+  box-sizing: border-box;
+  border-radius: 8px;
+  border: 1px solid rgba(33, 33, 33, 0.4);
+  margin: 8px 0 0;
+  width: 100%;
+}
+
+.modal__input_type_error {
+  border: 1px solid rgba(255, 0, 0, 0.6);
+}
+
+.modal__input::placeholder {
+  color: #212121;
+  opacity: 30%;
+}
+
+.modal__input:hover {
+  border: 1px solid rgb(33, 33, 33);
+}
+
+.modal__error {
+  display: block;
+  color: rgba(255, 0, 0, 0.6);
+  margin-top: 8px;
+}
+
+.modal__buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.modal__button {
+  width: 156px;
+  padding: 18px 0;
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+  text-align: center;
+  background: #212121;
+  color: #fcf5e5;
+  margin-top: 32px;
+  border-radius: 8px;
+
+  /* border: none; */
+}
+
+.modal__button_delete {
+  background-color: #ff6565;
+  width: 156px;
+  height: 52px;
+  padding: 18px 32px 18px 32px;
+  border-radius: 8px;
+  border: none;
+  opacity: 1;
+  color: #212121;
+  margin-top: 0;
+}
+
+.modal__button_delete:hover {
+  background-color: #ff3333;
+  cursor: pointer;
+}
+
+.modal__button_cancel {
+  background-color: #ffffff;
+  color: #212121;
+  width: 156px;
+  height: 52px;
+  padding: 18px 32px 18px 32px;
+  margin-top: 0;
+}
+
+.modal__button_cancel:hover {
+  background-color: #212121;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.modal__button_disabled {
+  background-color: #0b0b0b;
+  margin-top: 0;
+  opacity: 0.6;
+  width: 156px;
+}
+
+.inactive {
+  background-color: grey;
+  cursor: not-allowed;
+}
+
+@media screen and (max-width: 480px) {
+  .modal__delete-form {
+    width: 156px; /* Fixed width */
+    border-radius: 8px; /* Rounded corners */
+    padding: 12px; /* Padding inside the element */
+    display: flex; /* Enables gap if there are child elements */
+    margin: auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal__button_disabled {
+    width: 276px;
+  }
+
+  .modal {
+    padding: 0 10px;
+    max-width: 320px;
+  }
+
+  .modal__container {
+    padding: 12px;
+    max-width: 300px;
+    gap: 20px;
+    /* width: 300px; */
+  }
+
+  .modal__title_delete {
+    text-align: center;
+  }
+
+  .modal__input {
+    max-width: 276px;
+  }
+  .modal__title {
+    font-size: 20px;
+    margin: 10px 0 20px;
+  }
+  .modal__close {
+    position: absolute; /* If positioning is needed */
+    border-radius: 8px; /* Rounded corners */
+    padding: 12px; /* Padding inside the element */
+    gap: 20px;
+    bottom: 16px;
+    opacity: 40%;
+    right: 2px;
+    top: 15px;
+  }
+
+  .modal__close_type_preview {
+    top: -40px;
+    background-image: url(../images/close-light.png);
+    opacity: 1;
+  }
+
+  .modal__label {
+    margin-bottom: 24px;
+  }
+
+  .modal__button_save {
+    margin: 0;
+  }
+
+  .modal__button_cancel {
+    width: 156px; /* Fixed width */
+    height: 52px; /* Hug height (adjusts to content, but assuming a set height) */
+    border-radius: 8px; /* Rounded corners */
+    border: 1px solid #000; /* 1px solid border (change color as needed) */
+    padding: 18px 32px 18px 32px; /* top right bottom left */
+    gap: 8px;
+    margin: 0px;
+  }
+
+  .modal__close_delete {
+    background-image: url(../images/close-light.png);
+    top: -40px;
+  }
+
+  .modal__buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .modal__button {
+    width: 276px;
+    height: 52px;
+    border-radius: 8px;
+    padding: 18px 32px 18px 32px;
+  }
+  .modal__button_delete {
+    margin: 0px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .modal__image {
+    max-width: 288px;
+  }
+}
