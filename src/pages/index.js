@@ -54,7 +54,9 @@ const editProfileModal = document.querySelector("#edit-profile-modal");
 const editFormElement = editProfileModal.querySelector(".modal__form");
 
 const closeButtons = document.querySelectorAll(".modal__close");
-const editModalNameInput = editProfileModal.querySelector("#profile-name-input");
+const editModalNameInput = editProfileModal.querySelector(
+  "#profile-name-input"
+);
 const editModalDescriptionInput = editProfileModal.querySelector(
   "#profile-description-input"
 );
@@ -89,7 +91,6 @@ const previewModal = document.querySelector("#preview__modal");
 const previewModalImageElement = previewModal.querySelector(".modal__image");
 const previewModalCaptionElement =
   previewModal.querySelector(".modal__caption");
-
 
 //Card related elements
 const cardTemplate = document.querySelector("#card-template");
@@ -147,7 +148,6 @@ modalCancelButton.addEventListener("click", () => {
   console.log("delete cancelled");
   closeModal(deleteModal);
 });
-
 
 function getCardElement(data) {
   console.log(cardTemplate);
@@ -252,7 +252,6 @@ function handleEditFormSubmit(evt) {
     });
 }
 
-
 function handleAddCardSubmit(evt) {
   evt.preventDefault();
   console.log(descriptionInput.value);
@@ -277,7 +276,7 @@ function handleAddCardSubmit(evt) {
       evt.target.reset();
 
       // Disable submit button after submission
-      disableButton(cardSubmitButton, settings);
+      disableButton(cardSubmitButton, validationConfig);
 
       // Close the modal
       closeModal(cardModal);
@@ -312,7 +311,6 @@ function handleAvatarSubmit(evt) {
     .finally(() => {
       setButtonText(avatarSubmitButton, false);
     }); //Ensures the button resets regardless of sucess or failure//
-
 }
 
 // All EventListeners
@@ -342,7 +340,6 @@ cardModalButton.addEventListener("click", () => {
   openModal(cardModal);
 });
 
-
 editFormElement.addEventListener("submit", handleEditFormSubmit);
 
 cardForm.addEventListener("submit", handleAddCardSubmit);
@@ -362,6 +359,5 @@ function renderCard(item, method = "prepend") {
   // Use the specified method to add the card to the list
   cardsList[method](cardElement);
 }
-
 
 enableValidation(validationConfig);
