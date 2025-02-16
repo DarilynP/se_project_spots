@@ -187,7 +187,7 @@
 }
 
 .modal__button {
-  width: 276px;
+  width: 156px;
   padding: 18px 0;
   font-family: "Poppins", Arial, Helvetica, sans-serif;
   font-size: 16px;
@@ -258,9 +258,8 @@
     align-items: center;
   }
 
-  .modal__button_disabled{
-    width:276px;
-
+  .modal__button_disabled {
+    width: 276px;
   }
 
   .modal {

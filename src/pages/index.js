@@ -28,7 +28,7 @@ api
 
     const avatarElement = document.querySelector(".profile__avatar");
     const nameElement = document.querySelector(".profile__name");
-    const aboutElement = document.querySelector(".profile__about");
+    const aboutElement = document.querySelector(".profile__description");
 
     if (userInfo) {
       avatarElement.src = userInfo.avatar; // Set avatar image
@@ -38,7 +38,7 @@ api
   })
 
   .catch((err) => {
-    console.log("error fetching data:", err);
+    console.error("error fetching data:", err);
   });
 
 //pass settings object to the vailidation functions that are called on this file
@@ -47,6 +47,7 @@ api
 const profileEditButton = document.querySelector(".profile__edit-button");
 const cardModalButton = document.querySelector(".profile__add-button");
 const profileDescription = document.querySelector(".profile__description");
+console.log("Job", profileDescription);
 const profileName = document.querySelector(".profile__name");
 
 //Form Elements
@@ -237,8 +238,8 @@ function handleEditFormSubmit(evt) {
       console.log("Profile updated successfully!", data);
 
       // Update the profile name and description on the page
-      profileName.textContent = data.name;
       profileDescription.textContent = data.about;
+      profileName.textContent = data.name;
 
       // Close the modal
       closeModal(editProfileModal);
