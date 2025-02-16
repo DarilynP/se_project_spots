@@ -95,6 +95,9 @@ const previewModalCaptionElement =
 const cardTemplate = document.querySelector("#card-template");
 const cardsList = document.querySelector(".cards__list");
 
+// Call the function to disable the button
+disableButton(cardSubmitButton, validationConfig);
+
 let selectedCard, selectedCardId;
 
 function handleDeleteSubmit(evt) {
@@ -140,6 +143,12 @@ function handleLike(evt, id) {
     .catch(console.error); // 4. Handle any errors in the catch block
 }
 
+modalCancelButton.addEventListener("click", () => {
+  console.log("delete cancelled");
+  closeModal(deleteModal);
+});
+
+
 function getCardElement(data) {
   console.log(cardTemplate);
   const cardElement = cardTemplate.content
@@ -174,11 +183,6 @@ function getCardElement(data) {
 
   deleteButton.addEventListener("click", (evt) => {
     handleDeleteCard(evt, cardElement, data._id);
-  });
-
-  modalCancelButton.addEventListener("click", () => {
-    console.log("delete cancelled");
-    closeModal(deleteModal);
   });
 
   return cardElement;
@@ -298,14 +302,17 @@ function handleAvatarSubmit(evt) {
     .then((data) => {
       console.log("data.avatar", data.avatar);
       avatarImage.src = data.avatar;
-      setButtonText(avatarSubmitButton, false);
       closeModal(avatarModal);
       // closing the modal
       // resetting validation, disabling the button, etc.
     })
     .catch((err) => {
       console.error("Error updating avatar:", err);
-    }); //  Properly closed .then() and added .catch()
+    }) //  Properly closed .then() and added .catch()
+    .finally(() => {
+      setButtonText(avatarSubmitButton, false);
+    }); //Ensures the button resets regardless of sucess or failure//
+
 }
 
 // All EventListeners
