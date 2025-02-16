@@ -258,6 +258,11 @@
     align-items: center;
   }
 
+  .modal__button_disabled{
+    width:276px;
+
+  }
+
   .modal {
     padding: 0 10px;
     max-width: 320px;
