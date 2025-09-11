@@ -1,4 +1,4 @@
-const settings = {
+export const validationConfig = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
   submitButtonSelector: ".modal__button",
@@ -13,11 +13,11 @@ const showInputError = (formElement, inputElement, errorMsg, config) => {
 
   if (!errorMsgElement) {
     console.error(`Error message element not found for ${errorMsgID}`);
-    return; // Stop further execution if the element is missing
+    return;
   }
-  errorMsgElement.classList.add(settings.errorClass);
+  errorMsgElement.classList.add(config.errorClass);
   errorMsgElement.textContent = errorMsg;
-  inputElement.classList.add(settings.inputErrorClass);
+  inputElement.classList.add(config.inputErrorClass);
 };
 
 const hideInputError = (formElement, inputElement, config) => {
@@ -26,7 +26,7 @@ const hideInputError = (formElement, inputElement, config) => {
 
   if (!errorMsgElement) {
     console.error(`Error message element not found for ${errorMsgID}`);
-    return; // Stop further execution if the element is missing
+    return;
   }
 
   errorMsgElement.textContent = "";
@@ -47,47 +47,47 @@ const checkInputValidity = (formElement, inputElement, config) => {
   }
 };
 
-// function enableValidation(config) {
-//   const forms = document.querySelectorAll(config.formSelector);
-//   forms.forEach((form) => {
-//     setEventListeners(form, config); // Pass the config object to other functions
-//   });
-// }
+export function enableValidation(config) {
+  const forms = document.querySelectorAll(config.formSelector);
+  forms.forEach((form) => {
+    setEventListeners(form, config);
+  });
+}
 
 function validateInput(form, input, config) {
   const errorElement = form.querySelector(`#${input.id}-error`);
 
   if (!input.validity.valid) {
-    showInputError(input, errorElement, input.validationMessage, config);
+    showInputError(form, input, input.validationMessage, config);
   } else {
-    hideInputError(input, errorElement, config);
+    hideInputError(form, input, config);
   }
 }
 
 const hasInvalidInput = (inputList) => {
-  return inputList.some((input) => {
-    return !input.validity.valid;
-  });
+  return inputList.some((input) => !input.validity.valid);
 };
 
 const toggleButtonState = (inputList, buttonElement, config) => {
+  console.log("setEventListeners is running...");
+  console.log("buttonElement:", buttonElement);
+  console.log("inputList:", inputList);
+
   if (hasInvalidInput(inputList)) {
     disableButton(buttonElement, config);
   } else {
     buttonElement.disabled = false;
+    console.log(buttonElement);
     buttonElement.classList.remove(config.inactiveButtonClass);
   }
 };
 
-const disableButton = (buttonElement, config) => {
-  buttonElement.disabled = true;
+export const disableButton = (buttonElement, config) => {
   buttonElement.classList.add(config.inactiveButtonClass);
-  //add a modifer clss to the button element to make it grey
-  // dont forget css
+  buttonElement.disabled = true;
 };
 
-//optional!
-const resetValidation = (formElement, inputList, config) => {
+export const resetValidation = (formElement, inputList, config) => {
   inputList.forEach((input) => {
     hideInputError(formElement, input, config);
   });
@@ -96,7 +96,7 @@ const resetValidation = (formElement, inputList, config) => {
 function setEventListeners(form, config) {
   const inputs = Array.from(form.querySelectorAll(config.inputSelector));
   const submitButton = form.querySelector(config.submitButtonSelector);
-
+  console.log("Submit", submitButton);
   toggleButtonState(inputs, submitButton, config);
 
   inputs.forEach((input) => {
@@ -107,11 +107,6 @@ function setEventListeners(form, config) {
   });
 }
 
-const enableValidation = (config) => {
-  const formList = document.querySelectorAll(config.formSelector);
-  formList.forEach((formElement) => {
-    setEventListeners(formElement, config);
-  });
-};
+enableValidation(validationConfig);
 
-enableValidation(settings);
+console.log(validationConfig);
